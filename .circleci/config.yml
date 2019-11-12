@@ -87,7 +87,7 @@ version: 2
 jobs:
   test-job:
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:10-browsers
     steps:
       - checkout
 
@@ -102,7 +102,7 @@ jobs:
       - run: npm run test
   deploy-job:
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:10-browsers
     steps:
       - checkout
       - run: npm install && npm run build
