@@ -2,33 +2,33 @@
 
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 
-version: 2
-jobs:
-  build:
-    docker:
-      - image: 'circleci/node:8'
-    working_directory: ~/firestarter
+# version: 2
+# jobs:
+#   build:
+#     docker:
+#       - image: 'circleci/node:8'
+#     working_directory: ~/firestarter
 
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - 'v1-dependencies-{{ checksum "package.json" }}'
-            - v1-dependencies-
-      - run: 'npm install'
-      - save_cache:
-          paths:
-            - node_modules
-          key: 'v1-dependencies-{{ checksum "package.json" }}'
-      - run:
-          name: 'Test Project'
-          command: 'npm run test'
-      - run:
-          name: 'Build Project'
-          command: 'npm run build'
-      - run:
-          name: 'Deploy to Firebase Hosting'
-          command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - 'v1-dependencies-{{ checksum "package.json" }}'
+#             - v1-dependencies-
+#       - run: 'npm install'
+#       - save_cache:
+#           paths:
+#             - node_modules
+#           key: 'v1-dependencies-{{ checksum "package.json" }}'
+#       - run:
+#           name: 'Test Project'
+#           command: 'npm run test'
+#       - run:
+#           name: 'Build Project'
+#           command: 'npm run build'
+#       - run:
+#           name: 'Deploy to Firebase Hosting'
+#           command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
 # version: 2
 # jobs:
 #   build:
@@ -83,40 +83,40 @@ jobs:
 #       - build
 #       - test
 
-# version: 2
-# jobs:
-#   test-job:
-#     docker:
-#       - image: circleci/node:8-browsers
-#     steps:
-#       - checkout
+version: 2
+jobs:
+  test-job:
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
 
-#       # Cache to enable faster future jobs
-#       - run: npm install
-#       - save_cache:
-#           paths:
-#             - node_modules
-#           key: v1-dependencies-{{ checksum "package.json" }}
+      # Cache to enable faster future jobs
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
-#       # Run tests
-#       - run: npm run test
-#   deploy-job:
-#     docker:
-#       - image: circleci/node:8-browsers
-#     steps:
-#       - checkout
-#       - run: cd functions && npm install && npm run build
-#       - run: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+      # Run tests
+      - run: npm run test
+  deploy-job:
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - run: npm install && npm run build
+      - run: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 
-# workflows:
-#   version: 2
+workflows:
+  version: 2
 
-#   -test_and_deploy:
-#     jobs:
-#       - test-job
-#       - deploy-job:
-#           requires:
-#             - test-job
-#           filters:
-#             branches:
-#               only: master
+  -test_and_deploy:
+    jobs:
+      - test-job
+      - deploy-job:
+          requires:
+            - test-job
+          filters:
+            branches:
+              only: master
