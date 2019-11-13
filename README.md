@@ -8,7 +8,7 @@
 
 # FireStarter
 
-Firestarter is an Angular PWA powered by Firebase.
+Firestarter is an Angular PWA powered by Firebase. test
 
 - [Live Demo](https://firestarter.fireship.io/)
 - [Lessons and Screencasts](https://fireship.io)
@@ -41,22 +41,21 @@ Firestarter is an Angular PWA powered by Firebase.
 
 #### src/environments/
 
-Update the `environment.prod.ts` and `environment.ts` files. 
+Update the `environment.prod.ts` and `environment.ts` files.
 
 ```typescript
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'APIKEY',
-    authDomain: 'DEV-APP.firebaseapp.com',
-    databaseURL: 'https://DEV-APP.firebaseio.com',
-    projectId: 'DEV-APP',
-    storageBucket: 'DEV-APP.appspot.com',
-    messagingSenderId: '...',
-    appId: '...',
+    apiKey: "APIKEY",
+    authDomain: "DEV-APP.firebaseapp.com",
+    databaseURL: "https://DEV-APP.firebaseio.com",
+    projectId: "DEV-APP",
+    storageBucket: "DEV-APP.appspot.com",
+    messagingSenderId: "...",
+    appId: "..."
   }
 };
 ```
-
 
 5.  Run `ng serve`
